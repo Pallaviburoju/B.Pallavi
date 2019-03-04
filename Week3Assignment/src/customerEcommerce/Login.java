@@ -5,13 +5,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import customerEcommerce.Register;
 
 public class Login implements Serializable{
-	static ArrayList<String> items = new ArrayList<String>();
+	static HashMap<String,Integer> items = new HashMap<String,Integer>();
 private static String userName;
 public static String password;
 static int cartitems=0;
@@ -33,7 +37,7 @@ public static void setPassword(String password) {
    static void deserialize() throws Exception {
 	FileInputStream fis=new FileInputStream("E:\\customerEcommerce\\customerregister.txt");
 	ObjectInputStream ois=new ObjectInputStream(fis);
-	ArrayList<Register> arraylist2=(ArrayList<Register>) ois.readObject();
+    ArrayList<Register> arraylist2 = (ArrayList<Register>) ois.readObject();
 	Scanner sc= new Scanner(System.in);
 	System.out.println("enter customer name");
 	Login.setUserName(sc.next());
@@ -102,17 +106,17 @@ public static void fashion() {
 	switch(fashion)
 	{
 	case "1"  :System.out.println("Dress is selected");
-	           items.add("dress");
+	           items.put("dress",1000);
 	           cartitems++;
 	           contOrStop();
 	           break;
 	case "2"  :System.out.println("Watch is selected");
-	           items.add("watch");
+	           items.put("watch",2000);
 	           cartitems++;
 	           contOrStop();
 	           break;
 	case "3"  :System.out.println("shoes are selected");
-	           items.add("shoes");
+	           items.put("shoes",3000);
 	           cartitems++;
 	           contOrStop();
 	           break;
@@ -126,17 +130,17 @@ public static void homekitchen(){
 	switch(homekitchen)
 	{
 	case "1"  :System.out.println("Flower vase is selected");
-	           items.add("flowervase");
+	           items.put("flowervase",500);
 	           cartitems++;
 	           contOrStop();
 	           break;
 	case "2"  :System.out.println("Ricecooker is selected");
-	           items.add("ricecooker");
+	           items.put("ricecooker",4000);
 	           cartitems++;
 	           contOrStop();
 	           break;
 	case "3"  :System.out.println("Sofa is selected");
-	           items.add("sofa");
+	           items.put("sofa",6000);
 	           cartitems++;
 	           contOrStop();
 	           break;
@@ -150,18 +154,18 @@ public static void electronics() {
 	switch(electronics)
 	{
 	case "1"  :System.out.println("headset is selected");
-	           items.add("headset");
+	           items.put("headset",1000);
 	           cartitems++;
 	           contOrStop();
 	           break;
 	case "2"  :System.out.println("powerBank is selected");
-	           items.add("powerbank");
+	           items.put("powerbank",3000);
 	           cartitems++;
 	           contOrStop();
 	           break;
 	         
 	case "3"  :System.out.println("MobilePhone is selected");
-	           items.add("moilephone");
+	           items.put("moilephone",20000);
 	           cartitems++;
 	           contOrStop();
 	           break;
@@ -169,10 +173,19 @@ public static void electronics() {
 }
 public static void cart() {
 	System.out.println("No of items in the cart are "+cartitems);
-	Iterator iterate=items.iterator();
-	while(iterate.hasNext()) {
+	System.out.println(getUserName());
+	//Iterator iterate= ((Collection<Entry<String,Integer>>) items).iterator();
+	/*while(iterate.hasNext()) {
 		System.out.println(iterate.next());
+	}*/
+	for(HashMap.Entry obj:items.entrySet()) {
+		System.out.println(obj.getKey()+" "+obj.getValue());
 	}
+	int sum = 0;
+	for (int i : items.values()) {
+	    sum += i;
+	}
+	System.out.println("Total price of all items are "+sum);
 	removeItemorPay();
 }
 public static void removeItemorPay() {
@@ -225,9 +238,11 @@ public static void contOrStop() {
 	{
 	case "1"  :System.out.println("Continue shopping");
 	           Login.categoryOfShopping();
+	           break;
 	
 	case "2"  :System.out.println("Your cart");
 	           cart();
+	           break;
 	}
 }
 public static void exit() {
