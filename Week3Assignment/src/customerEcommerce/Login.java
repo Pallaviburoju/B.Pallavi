@@ -43,9 +43,11 @@ public static void setPassword(String password) {
 	Login.setUserName(sc.next());
 	System.out.println("enter password");
 	Login.setPassword(sc.next());
-	Iterator iterate=arraylist2.iterator();
-	start:while(iterate.hasNext()) {
-		for(Register get:arraylist2) {
+	//System.out.println("username"+getUserName());
+	//System.out.println("password"+getPassword());
+	//Iterator iterate=arraylist2.iterator();
+	//start:while(iterate.hasNext()) {
+		//for(Register get:arraylist2) {
 			if(Register.customerName.equals(userName) && Register.pswd.equals(password)) {
 				String category;
 				Scanner s= new Scanner(System.in);
@@ -54,19 +56,19 @@ public static void setPassword(String password) {
 				switch(category)
 				{
 				case "m" :Login.male();
-								break start;		
+								break ;		
 										
 				case "f" :Login.female();
-				                break start;		
+				                break ;		
 										
 				case "ch" :Login.child();
-				                break start;    
+				                break ;    
 				}
 			}
 		
 				
-		}
-	}
+		
+	
 	
 }
 public static void categoryOfShopping() {
@@ -201,11 +203,27 @@ public static void removeItemorPay() {
 	          String element= s.next();
 	            	 items.remove(element);
 	           cart();
-	           payment();
+	           
 	           break;
 	
 	case "2"  :System.out.println("Goto payment");
 	           payment();
+	           break;
+	}
+}
+public static void contOrStop() {
+	String decide;
+	Scanner s=new Scanner(System.in);
+	System.out.println("press 1 for continue shopping, 2 to go to cart");
+	decide=s.next();
+	switch(decide)
+	{
+	case "1"  :System.out.println("Continue shopping");
+	           Login.categoryOfShopping();
+	           break;
+	
+	case "2"  :System.out.println("Your cart");
+	           cart();
 	           break;
 	}
 }
@@ -228,23 +246,9 @@ public static void payment() {
 				exit();
 				break;
 	}
+
 }
-public static void contOrStop() {
-	String decide;
-	Scanner s=new Scanner(System.in);
-	System.out.println("press 1 for continue shopping, 2 to go to cart");
-	decide=s.next();
-	switch(decide)
-	{
-	case "1"  :System.out.println("Continue shopping");
-	           Login.categoryOfShopping();
-	           break;
-	
-	case "2"  :System.out.println("Your cart");
-	           cart();
-	           break;
-	}
-}
+
 public static void exit() {
 	System.out.println("Thank you for shopping");
 }

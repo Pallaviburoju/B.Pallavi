@@ -15,8 +15,10 @@ public class LoginOrRegister {
 								Register.get();
 								Register.serialize();							
 								Login.deserialize();
+								break;
 								
 		case "login" : Login.deserialize();
+		               break;
 		}
 	}
 
